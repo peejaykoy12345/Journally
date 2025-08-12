@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}Home - Journally{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h1 class="fw-bold" style="font-family: 'Dancing Script', cursive; font-size: 3rem;">
+        Welcome to Journally ✍️
+    </h1>
+    <p class="lead">
+        Your private space for thoughts, reflections, and memories — kept safe and beautifully organized.
+    </p>
+</div>
+
+<div class="journal-content mt-4">
+    <h3 style="font-family: 'Dancing Script', cursive; color: #7a5c3f;">
+        Start Writing Today
+    </h3>
+    <p>
+        Whether it’s your daily diary, creative ideas, or goals, Journally is your safe haven for words.
+        Write freely, store securely, and revisit your journey anytime.
+    </p>
+
+    {% if current_user.is_authenticated %}
+        <a href="#" class="btn btn-outline-danger mt-3">
+            ➕ New Entry
+        </a>
+        <a href="#" class="btn btn-outline-secondary mt-3">
+            📓 View My Journal
+        </a>
+    {% else %}
+        <a href="#" class="btn btn-outline-danger mt-3">
+            ✨ Create an Account
+        </a>
+        <a href="#" class="btn btn-outline-secondary mt-3">
+            🔑 Login
+        </a>
+    {% endif %}
+</div>
+{% endblock %}
