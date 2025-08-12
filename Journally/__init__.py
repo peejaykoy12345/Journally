@@ -13,6 +13,8 @@ bcrypt = Bcrypt(app)
 
 login_manager = LoginManager(app)
 
-from Journally.routes import general_bp
+from Journally.routes.general_routes import general_bp
+from Journally.routes.auth_routes import auth_bp
 
 app.register_blueprint(general_bp)
+app.register_blueprint(auth_bp)
