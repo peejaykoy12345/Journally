@@ -1,0 +1,67 @@
+body {
+    background-color: #fdfaf6;
+    background-image: url("https://www.transparenttextures.com/patterns/old-wall.png");
+    font-family: 'Merriweather', serif;
+    color: #3e3e3e;
+}
+
+.journal-navbar {
+    background-color: #fff9f0 !important;
+    border-bottom: 2px solid #e5d3b3;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+}
+
+.journal-navbar .nav-link {
+    color: #7a5c3f !important;
+    transition: color 0.3s ease;
+}
+
+.journal-navbar .nav-link:hover {
+    color: #4b3829 !important;
+}
+
+.journal-container {
+    padding: 2rem;
+}
+
+.journal-content {
+    background-color: #fffdf8;
+    border: 1px solid #e5d3b3;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(190, 150, 100, 0.1);
+    line-height: 1.7;
+}
+
+.journal-footer {
+    background-color: #fff9f0;
+    border-top: 1px solid #e5d3b3;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2rem;
+}
+
+.btn-outline-danger {
+    border-color: #c96f53;
+    color: #c96f53;
+}
+
+.btn-outline-danger:hover {
+    background-color: #c96f53;
+    color: white;
+}
+
+.alert {
+    border-radius: 8px;
+    font-family: 'Merriweather', serif;
+}
+
+.alert-info {
+    background-color: #fdf3d0;
+    color: #6a4f2d;
+}
+
+.alert-success {
+    background-color: #e5f3d0;
+    color: #4d6a2d;
+}
