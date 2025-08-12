@@ -12,10 +12,16 @@
         <div class="mb-3">
             {{ form.email.label(class="form-label") }}
             {{ form.email(class="form-control", placeholder="Enter your email") }}
+            {% for error in form.email.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
         </div>
         <div class="mb-3">
             {{ form.password.label(class="form-label") }}
             {{ form.password(class="form-control", placeholder="Enter your password") }}
+            {% for error in form.password.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
         </div>
         <div class="mb-3 form-check">
             {{ form.remember(class="form-check-input") }}
