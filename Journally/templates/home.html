@@ -22,10 +22,10 @@
     </p>
 
     {% if current_user.is_authenticated %}
-        <a href="#" class="btn btn-outline-danger mt-3">
+        <a href="{{ url_for('journal.create_journal') }}" class="btn btn-outline-danger mt-3">
             ➕ New Entry
         </a>
-        <a href="#" class="btn btn-outline-secondary mt-3">
+        <a href="{{ url_for("journal.journals") }}" class="btn btn-outline-secondary mt-3">
             📓 View My Journal
         </a>
     {% else %}

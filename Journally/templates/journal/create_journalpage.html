@@ -1,20 +1,42 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container">
-    <h1>Create Journal Page</h1>
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <div>
-            {{ form.title.label }}<br>
-            {{ form.title(size=50) }}
+<div class="container py-5">
+    <div class="card shadow-lg rounded-3 border-0">
+        <div class="card-body">
+            <h1 class="mb-4 text-center">🖊️ Create Journal Page</h1>
+
+            <form method="POST" novalidate>
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+                    {{ form.title.label(class="form-label fw-bold") }}
+                    {{ form.title(class="form-control", placeholder="Enter a page title...") }}
+                    {% if form.title.errors %}
+                        <div class="text-danger mt-1 small">
+                            {% for error in form.title.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.content.label(class="form-label fw-bold") }}
+                    {{ form.content(class="form-control", placeholder="Write your thoughts here...", rows="6") }}
+                    {% if form.content.errors %}
+                        <div class="text-danger mt-1 small">
+                            {% for error in form.content.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="text-center">
+                    {{ form.create(class="btn btn-primary px-4 py-2 fw-bold") }}
+                </div>
+            </form>
         </div>
-        <div>
-            {{ form.content.label }}<br>
-            {{ form.content(size=50) }}
-        </div>
-        <div>
-            {{ form.create(class="btn btn-primary") }}
-        </div>
-    </form>
+    </div>
 </div>
 {% endblock %}

@@ -4,6 +4,12 @@
 {% block content %}
 <h2 class="mb-4 text-center">📚 My Journals</h2>
 
+<div class="text-center mb-4">
+    <a href="{{ url_for('journal.create_journal') }}" class="btn btn-outline-danger">
+        ➕ Create New Journal
+    </a>
+</div>
+
 {% if journals and journals|length > 0 %}
     <div class="list-group">
         {% for journal in journals %}
