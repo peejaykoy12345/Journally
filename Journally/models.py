@@ -18,6 +18,14 @@ class Journal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    journal_pages = db.relationship("JournalPage", backref="journal", lazy=True)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+class JournalPage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    journal_id = db.Column(db.Integer, db.ForeignKey('journal.id'), nullable=False)
+
     title = db.Column(db.String(150), nullable=False)
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
