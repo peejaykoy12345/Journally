@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Create Journal Page{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 text-center">📄 Create a New Page</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.title.label(class="form-label fw-bold") }}
+        {{ form.title(class="form-control", placeholder="Enter page title") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.content.label(class="form-label fw-bold") }}
+        {{ form.content(class="form-control", placeholder="Write your page content here") }}
+    </div>
+
+    <div class="text-center">
+        {{ form.create(class="btn btn-outline-danger") }}
+    </div>
+</form>
+{% endblock %}
