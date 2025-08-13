@@ -10,7 +10,7 @@
             <a href="{{ url_for('journal.view_journal', journal_id=journal.id) }}" 
                class="list-group-item list-group-item-action">
                 <h5 class="mb-1">{{ journal.title }}</h5>
-                <small class="text-muted">Created on {{ journal.created_at.strftime('%B %d, %Y') }}</small>
+                <small class="text-muted">Created on {{ journal.date_posted.strftime('%B %d, %Y') }}</small>
             </a>
         {% endfor %}
     </div>

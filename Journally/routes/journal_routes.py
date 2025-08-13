@@ -23,10 +23,16 @@ def create_journal():
         return redirect(url_for("journal.journals"))
     return render_template("journal/create_journal.html", form=form)
 
+@journal_bp.route("/create_journal_page", methods=["POST", "GET"])
+def create_journal_page():
+    form = CreateJournalPageForm()
+    if form.validate_on_submit():
+        
+
 @journal_bp.route("/journal/<int:journal_id>")
 @login_required
 def view_journal(journal_id):
-    journal = Journal.query.filter_by(id=journal_id, user_id=current_user.id).first_or_404()
+    journal = Journal.query.filter_by(id=journal_id, owner_id=current_user.id).first_or_404()
 
     if current_user.id != journal.owner_id:
         abort(403)
@@ -34,7 +40,7 @@ def view_journal(journal_id):
     page_num = request.args.get("page", 1, type=int)
 
     pages = JournalPage.query.filter_by(journal_id=journal.id)\
-                      .order_by(JournalPage.created_at.desc())\
+                      .order_by(JournalPage.date_posted.desc())\
                       .paginate(page=page_num, per_page=5)
 
-    return render_template("journal/view.html", journal=journal, pages=pages)
+    return render_template("journal/view_journal.html", journal=journal, pages=pages)
