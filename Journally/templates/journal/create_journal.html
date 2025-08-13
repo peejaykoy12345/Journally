@@ -1,33 +1,18 @@
 {% extends "layout.html" %}
-{% block title %}My Journals{% endblock %}
+{% block title %}Create Journal{% endblock %}
 
 {% block content %}
-<h2 class="mb-4 text-center">📚 My Journals</h2>
+<h2 class="mb-4 text-center">📝 Create a New Journal</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
 
-{% if current_user.is_authenticated %}
-    {% if journals and journals|length > 0 %}
-        <div class="list-group">
-            {% for journal in journals %}
-                <a href="{{ url_for('journal.view_journal', journal_id=journal.id) }}" 
-                   class="list-group-item list-group-item-action">
-                    <h5 class="mb-1">{{ journal.title }}</h5>
-                    <small class="text-muted">Created on {{ journal.created_at.strftime('%B %d, %Y') }}</small>
-                </a>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="text-center my-5">
-            <p class="mb-3">You have no journals yet 😔</p>
-            <a href="{{ url_for('journal.create_journal') }}" class="btn btn-outline-danger">
-                ➕ Create Journal
-            </a>
-        </div>
-    {% endif %}
-{% else %}
-    <div class="text-center my-5">
-        <p class="mb-3">Please log in or register to start journaling 📝</p>
-        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-danger me-2">🔑 Login</a>
-        <a href="{{ url_for('auth.register') }}" class="btn btn-outline-danger">🆕 Register</a>
+    <div class="mb-3">
+        {{ form.title.label(class="form-label fw-bold") }}
+        {{ form.title(class="form-control", placeholder="Enter journal title") }}
     </div>
-{% endif %}
+
+    <div class="text-center">
+        {{ form.create(class="btn btn-outline-danger") }}
+    </div>
+</form>
 {% endblock %}

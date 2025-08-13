@@ -15,6 +15,8 @@ login_manager = LoginManager(app)
 
 from Journally.routes.general_routes import general_bp
 from Journally.routes.auth_routes import auth_bp
+from Journally.routes.journal_routes import journal_bp
 
 app.register_blueprint(general_bp)
 app.register_blueprint(auth_bp)
+app.register_blueprint(journal_bp)

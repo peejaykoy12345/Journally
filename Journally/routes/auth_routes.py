@@ -17,7 +17,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash(f'Your account has been created!', 'sucess')
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
     return render_template('register.html', title='Register', form=form)
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -30,7 +30,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('general.home'))
         else:
             flash("Login unsuccessful", 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -39,4 +39,4 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('general.home'))
