@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Edit Page{% endblock %}
+
+{% block content %}
+<h2 class="mb-4 text-center">✏️ Edit Page</h2>
+<form method="POST">
+  {{ form.hidden_tag() }}
+
+  <div class="mb-3">
+    {{ form.title.label(class="form-label fw-bold") }}
+    {{ form.title(class="form-control", placeholder="Enter title") }}
+    {% for error in form.title.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="mb-3">
+    {{ form.content.label(class="form-label fw-bold") }}
+    {{ form.content(class="form-control", placeholder="Enter content") }}
+    {% for error in form.content.errors %}
+      <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="text-center">
+    {{ form.create(class="btn btn-outline-danger") }}
+  </div>
+</form>
+{% endblock %}

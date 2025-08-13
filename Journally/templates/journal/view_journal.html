@@ -4,7 +4,7 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
   <h2 class="m-0">📓 {{ journal.title if journal else "Journal" }}</h2>
-  <a href="#" class="btn btn-outline-danger">
+  <a href="{{ url_for('journal.create_journal_page', journal_id=journal.id) }}" class="btn btn-outline-danger">
     ➕ Add Page
   </a>
 </div>
@@ -12,11 +12,11 @@
 {% if pages.items %}
   <div class="list-group">
     {% for page in pages.items %}
-      <a href="{{ url_for('journal.view_page', page_id=page.id) }}" class="list-group-item list-group-item-action">
+      <div class="list-group-item">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{ page.title }}</h5>
-          {% if page.created_at %}
-            <small class="text-muted">{{ page.created_at.strftime('%B %d, %Y') }}</small>
+          {% if page.date_posted %}
+            <small class="text-muted">{{ page.date_posted.strftime('%B %d, %Y') }}</small>
           {% endif %}
         </div>
         {% if page.content %}
@@ -24,13 +24,18 @@
             {{ page.content[:180] }}{% if page.content|length > 180 %}…{% endif %}
           </p>
         {% endif %}
-      </a>
+        <div class="mt-2">
+          <a href="{{ url_for('journal.edit_journal_page', journal_page_id=page.id) }}" class="btn btn-sm btn-warning">
+            ✏️ Edit
+          </a>
+        </div>
+      </div>
     {% endfor %}
   </div>
 {% else %}
   <div class="text-center my-5">
     <p class="text-muted mb-3">No pages yet 📭</p>
-    <a href="#" class="btn btn-primary">➕ Create Your First Page</a>
+    <a href="{{ url_for('journal.create_journal_page', journal_id=journal.id) }}" class="btn btn-primary">➕ Create Your First Page</a>
   </div>
 {% endif %}
 {% endblock %}
