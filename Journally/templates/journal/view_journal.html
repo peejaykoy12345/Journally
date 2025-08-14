@@ -25,9 +25,11 @@
           </p>
         {% endif %}
         <div class="mt-2 d-flex gap-2">
-          <a href="{{ url_for('journal.edit_journal_page', journal_page_id=page.id) }}" class="btn btn-sm btn-warning">
-            ✏️ Edit
-          </a>
+          <form action="{{ url_for('journal.edit_journal_page', journal_page_id=page.id) }}" method="GET" style="display:inline;">
+            {{ edit_button.hidden_tag() }}
+            <input type="submit" name="edit_button" value="✏️ Edit" class="btn btn-sm btn-warning">
+          </form>
+
           <form action="{{ url_for('journal.delete_journal_page', page_id=page.id) }}" method="POST" style="display:inline;">
             {{ delete_button.hidden_tag() }}
             <input type="submit" name="delete_button" value="🗑️ Delete" class="btn btn-sm btn-danger">
