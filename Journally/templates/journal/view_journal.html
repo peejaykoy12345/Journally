@@ -24,10 +24,14 @@
             {{ page.content[:180] }}{% if page.content|length > 180 %}…{% endif %}
           </p>
         {% endif %}
-        <div class="mt-2">
+        <div class="mt-2 d-flex gap-2">
           <a href="{{ url_for('journal.edit_journal_page', journal_page_id=page.id) }}" class="btn btn-sm btn-warning">
             ✏️ Edit
           </a>
+          <form action="{{ url_for('journal.delete_journal_page', page_id=page.id) }}" method="POST" style="display:inline;">
+            {{ delete_button.hidden_tag() }}
+            <input type="submit" name="delete_button" value="🗑️ Delete" class="btn btn-sm btn-danger">
+          </form>
         </div>
       </div>
     {% endfor %}

@@ -18,3 +18,6 @@ class EditJournalPageForm(FlaskForm):
 
 class DeleteButton(FlaskForm):
     delete = SubmitField("Delete")
+
+class EditButton(FlaskForm):
+    edit = SubmitField("Edit")

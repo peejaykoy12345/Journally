@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
 from Journally import db
 from Journally.models import Journal, JournalPage
-from Journally.forms.journal_forms import CreateJournalForm, CreateJournalPageForm, EditJournalPageForm, DeleteButton
+from Journally.forms.journal_forms import CreateJournalForm, CreateJournalPageForm, EditJournalPageForm, DeleteButton, EditButton
 
 journal_bp = Blueprint("journal", __name__)
 
@@ -46,6 +46,7 @@ def create_journal_page(journal_id):
 @login_required
 def edit_journal_page(journal_page_id):
     page = JournalPage.query.filter_by(id=journal_page_id, owner_id=current_user.id).first_or_404()
+
     if page.owner_id != current_user.id:
         abort(403)
     form = EditJournalPageForm()
@@ -64,6 +65,9 @@ def edit_journal_page(journal_page_id):
 def view_journal(journal_id):
     journal = Journal.query.filter_by(id=journal_id, owner_id=current_user.id).first_or_404()
 
+    edit_button = EditButton()
+    delete_button = DeleteButton()
+
     if current_user.id != journal.owner_id:
         abort(403)
 
@@ -73,12 +77,12 @@ def view_journal(journal_id):
                       .order_by(JournalPage.date_posted.desc())\
                       .paginate(page=page_num, per_page=5)
 
-    return render_template("journal/view_journal.html", journal=journal, pages=pages)
+    return render_template("journal/view_journal.html", journal=journal, pages=pages, edit_button=edit_button,delete_button=delete_button)
 
 @journal_bp.route("/delete_journal/<int:journal_id>", methods=["POST", "GET"])
 @login_required
 def delete_journal(journal_id):
-    journal = Journal.query.get_or_404(id=journal_id)
+    journal = Journal.query.get_or_404(journal_id)
 
     if journal.owner_id != current_user.id:
         abort(403)
@@ -94,10 +98,12 @@ def delete_journal(journal_id):
 @journal_bp.route("/delete_journal_page/<int:page_id>", methods=["POST", "GET"])
 @login_required
 def delete_journal_page(page_id):
-    page = JournalPage.query.get_or_404(id=page_id)
+    page = JournalPage.query.get_or_404(page_id)
 
     if page.owner_id != current_user.id:
         abort(403)
 
     db.session.delete(page)
     db.session.commit()
+
+    return redirect(url_for("journal.view_journal", journal_id=page.journal_id))

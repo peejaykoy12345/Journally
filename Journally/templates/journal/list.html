@@ -21,7 +21,7 @@
                         <small class="text-muted">Created on {{ journal.date_posted.strftime('%B %d, %Y') }}</small>
                     </a>
                     <form action="{{ url_for('journal.delete_journal', journal_id=journal.id) }}" method="POST" class="ms-3">
-                        {{ form.hidden_tag() }}
+                        {{ delete_button.hidden_tag() }}
                         <input type="submit" name="delete_button" value="🗑️ Delete" class="btn btn-sm btn-danger">
                     </form>
                 </div>
