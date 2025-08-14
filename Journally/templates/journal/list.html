@@ -13,11 +13,19 @@
 {% if journals and journals|length > 0 %}
     <div class="list-group">
         {% for journal in journals %}
-            <a href="{{ url_for('journal.view_journal', journal_id=journal.id) }}" 
-               class="list-group-item list-group-item-action">
-                <h5 class="mb-1">{{ journal.title }}</h5>
-                <small class="text-muted">Created on {{ journal.date_posted.strftime('%B %d, %Y') }}</small>
-            </a>
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{{ url_for('journal.view_journal', journal_id=journal.id) }}" 
+                       class="text-decoration-none text-dark flex-grow-1">
+                        <h5 class="mb-1">{{ journal.title }}</h5>
+                        <small class="text-muted">Created on {{ journal.date_posted.strftime('%B %d, %Y') }}</small>
+                    </a>
+                    <form action="{{ url_for('journal.delete_journal', journal_id=journal.id) }}" method="POST" class="ms-3">
+                        {{ form.hidden_tag() }}
+                        <input type="submit" name="delete_button" value="🗑️ Delete" class="btn btn-sm btn-danger">
+                    </form>
+                </div>
+            </div>
         {% endfor %}
     </div>
 {% else %}

@@ -15,3 +15,6 @@ class EditJournalPageForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     content = StringField("Content", validators=[DataRequired()])
     create = SubmitField("Save Edits")
+
+class DeleteButton(FlaskForm):
+    delete = SubmitField("Delete")

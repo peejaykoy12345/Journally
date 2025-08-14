@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
 from Journally import db
 from Journally.models import Journal, JournalPage
-from Journally.forms.journal_forms import CreateJournalForm, CreateJournalPageForm, EditJournalPageForm
+from Journally.forms.journal_forms import CreateJournalForm, CreateJournalPageForm, EditJournalPageForm, DeleteButton
 
 journal_bp = Blueprint("journal", __name__)
 
@@ -11,7 +11,9 @@ journal_bp = Blueprint("journal", __name__)
 def journals():
     journals = Journal.query.filter_by(owner_id=current_user.id).all()
 
-    return render_template("journal/list.html", journals=journals)
+    delete_button = DeleteButton()
+
+    return render_template("journal/list.html", journals=journals, delete_button=delete_button)
 
 @journal_bp.route("/create_journal", methods=["POST", "GET"])
 @login_required
@@ -72,3 +74,30 @@ def view_journal(journal_id):
                       .paginate(page=page_num, per_page=5)
 
     return render_template("journal/view_journal.html", journal=journal, pages=pages)
+
+@journal_bp.route("/delete_journal/<int:journal_id>", methods=["POST", "GET"])
+@login_required
+def delete_journal(journal_id):
+    journal = Journal.query.get_or_404(id=journal_id)
+
+    if journal.owner_id != current_user.id:
+        abort(403)
+
+    for page in journal.journal_pages:
+        db.session.delete(page)
+
+    db.session.delete(journal)
+    db.session.commit()
+    
+    return redirect(url_for("journal.journals"))
+
+@journal_bp.route("/delete_journal_page/<int:page_id>", methods=["POST", "GET"])
+@login_required
+def delete_journal_page(page_id):
+    page = JournalPage.query.get_or_404(id=page_id)
+
+    if page.owner_id != current_user.id:
+        abort(403)
+
+    db.session.delete(page)
+    db.session.commit()
