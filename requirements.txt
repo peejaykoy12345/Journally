@@ -6,3 +6,4 @@ Flask-Bcrypt
 email-validator
 WTForms
 Pillow
+gunicorn
